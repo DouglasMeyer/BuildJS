@@ -1,0 +1,15 @@
+doctype html
+
+html
+  head
+    title BuildJS
+    link(href="index.css" rel="stylesheet" type="text/css")
+
+  body(ng-app="BuildJS")
+    h1 BuildJS
+
+    ul(ng-controller="ExamplesCtrl")
+      li(ng-repeat="example in examples")
+        pre {{example | json}}
+
+    script(src="index.js")

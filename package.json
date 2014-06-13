@@ -1,0 +1,22 @@
+{
+  "name": "build_js",
+  "version": "0.0.0",
+  "description": "Examples of build files for web projects.",
+  "directories": {
+    "example": "examples"
+  },
+  "scripts": {
+    "test": "./build_all",
+    "addExample": "mkdir src/examples/$(uuidgen)"
+  },
+  "keywords": [
+    "node",
+    "js",
+    "gulp",
+    "grunt",
+    "build",
+    "examples"
+  ],
+  "author": "Douglas Meyer <Douglas.Meyer@mail.com>",
+  "license": "ISC"
+}
