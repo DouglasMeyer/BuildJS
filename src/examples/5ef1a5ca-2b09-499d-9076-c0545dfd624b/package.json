@@ -1,0 +1,20 @@
+{
+  "name": "Sample_gulpfile.js",
+  "description": "This file is just a quick sample to give you a taste of what gulp does.",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gulpjs/gulp.git"
+  },
+  "homepage": "https://github.com/gulpjs/gulp",
+  "devDependencies": {
+    "gulp": "^3.8.0",
+    "gulp-coffee": "^2.0.1",
+    "gulp-concat": "^2.2.0",
+    "gulp-imagemin": "^0.6.1",
+    "gulp-uglify": "^0.3.0",
+    "rimraf": "^2.2.8"
+  }
+}

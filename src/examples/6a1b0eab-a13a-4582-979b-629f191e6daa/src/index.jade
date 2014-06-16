@@ -5,11 +5,20 @@ html
     title BuildJS
     link(href="index.css" rel="stylesheet" type="text/css")
 
-  body(ng-app="BuildJS")
-    h1 BuildJS
+  body(ng-app="BuildJS" ng-controller="ExamplesCtrl")
+    h1.title BuildJS
+      .title__tagline a collection of node build scripts.
 
-    ul(ng-controller="ExamplesCtrl")
-      li(ng-repeat="example in examples")
-        pre {{example | json}}
+    input.search(ng-model="search")
+
+    .example-preview(ng-cloak ng-repeat="example in examples | filter:{name:search}")
+      span.example-preview__name {{example.name}}
+      span.example-preview__description {{example.description}}
+      span.example-preview__author {{example.author}}
+      .example-preview__dependencies
+        span.example-preview__dependency(
+          ng-repeat="(dep, ver) in example.devDependencies"
+          style="background-color: {{dep | hexify}};"
+        ) {{dep}}
 
     script(src="index.js")

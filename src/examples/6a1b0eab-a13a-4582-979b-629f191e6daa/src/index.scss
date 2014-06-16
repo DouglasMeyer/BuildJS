@@ -1,5 +1,59 @@
-h2 {
-  &:before {
-    content: "css works";
+html {
+  font-size: 20px;
+}
+
+body {
+  background-color: #F8F8F8;
+  color: #111111;
+}
+
+.title {
+  text-align: center;
+}
+.title__tagline {
+  font-size: 1rem;
+}
+
+.search {
+  display: block;
+  font-size: 2rem;
+  width: 80%;
+  margin: 2rem auto;
+  padding: 5px 1ex;
+}
+
+.example-preview {
+  position: relative;
+  height: 3.4em;
+  margin: 0 1rem 1rem;
+  background-color: white;
+  box-shadow: 1px 1px 3px rgba(0,0,0, 0.25);
+  padding: 1ex 1em;
+
+  > * {
+    position: absolute;
+  }
+
+  .example-preview__name {
+    position: relative;
+    font-weight: bold;
+    margin-right: 1em;
+  }
+  .example-preview__description {
+    position: relative;
+  }
+  .example-preview__author {
+    top: 1ex; right: 1em;
+  }
+  .example-preview__dependencies {
+    bottom: 1ex;
+    font-size: 0.8rem;
+    font-family: monospace;
+  }
+  .example-preview__dependency {
+    margin-right: 1ex;
+    box-shadow: 0 1px 2px rgba(0,0,0, 0.4);
+    border-radius: 3px;
+    padding: 0 3px;
   }
 }
