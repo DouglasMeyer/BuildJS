@@ -1,3 +1,5 @@
+* { box-sizing: border-box; }
+
 html {
   font-size: 20px;
 }
@@ -12,6 +14,39 @@ body {
 }
 .title__tagline {
   font-size: 1rem;
+}
+
+[ng-view] {
+  $transition-time: 0.1s;
+  $scale-modifier: 0.02;
+
+  &.ng-enter, &.ng-leave {
+    transition-property: opacity -webkit-transform;
+    transition-duration: $transition-time;
+    transition-timing-function: linear;
+  }
+
+  &.ng-enter {
+    transition-delay: $transition-time;
+
+    opacity: 0;
+    -webkit-transform: scale(1 - $scale-modifier);
+
+    &.ng-enter-active {
+      opacity: 1;
+      -webkit-transform: scale(1);
+    }
+  }
+
+  &.ng-leave {
+    opacity: 1;
+    -webkit-transform: scale(1);
+
+    &.ng-leave-active {
+      opacity: 0;
+      -webkit-transform: scale(1 + $scale-modifier);
+    }
+  }
 }
 
 .search {
@@ -46,7 +81,7 @@ body {
     top: 1ex; right: 1em;
   }
   .example-preview__dependencies {
-    bottom: 1ex;
+    top: 2.5em;
     font-size: 0.8rem;
     font-family: monospace;
   }

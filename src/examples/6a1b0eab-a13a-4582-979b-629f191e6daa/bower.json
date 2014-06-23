@@ -1,0 +1,16 @@
+{
+  "name": "build_js_site",
+  "version": "0.0.0",
+  "homepage": "https://github.com/DouglasMeyer/BuildJS",
+  "authors": [
+    "Douglas Meyer <Douglas.Meyer@mail.com>"
+  ],
+  "description": "This is used to build the build_js site.",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "angular-route": "~1.2.18",
+    "angular": "~1.2.18",
+    "angular-animate": "~1.2.18"
+  }
+}

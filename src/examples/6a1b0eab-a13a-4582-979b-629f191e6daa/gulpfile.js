@@ -21,6 +21,8 @@ var srcDir = 'src/',
     scssFiles = [ srcDir+scssGlob ],
     jsFiles   = [
       'bower_components/angular/angular.js',
+      'bower_components/angular-route/angular-route.js',
+      'bower_components/angular-animate/angular-animate.js',
       srcDir+'index.js', // Ensure our app is between angular and the rest.
       srcDir+jsGlob
     ],
@@ -66,6 +68,12 @@ gulp.task('js', function() {
       .pipe(refresh(lrServer))
 });
 
+gulp.task('server', function(next) {
+  var connect = require('connect'),
+  server = connect();
+  server.use(connect.static(buildDir)).listen(process.env.PORT || 8000, next);
+});
+
 gulp.task('lr-server', function() {
   lrServer.listen(lrPort, function(err) {
     if(err) return console.log(err);
@@ -74,7 +82,7 @@ gulp.task('lr-server', function() {
 
 
 // - Tasks
-gulp.task('default', ['clean', 'lr-server'], function() {
+gulp.task('default', ['clean', 'server', 'lr-server'], function() {
   gulp.start('html', 'css', 'js');
 
   gulp.watch(jsFiles,   ['js']  );

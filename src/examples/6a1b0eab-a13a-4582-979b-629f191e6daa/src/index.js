@@ -1,11 +1,35 @@
-angular.module('BuildJS', ['ng'])
-.controller('ExamplesCtrl', function($scope, ExampleData){
+angular.module('BuildJS', ['ng', 'ngRoute', 'ngAnimate'])
+.config(function($locationProvider, $routeProvider){
+  $routeProvider
+    .when('/:id', {
+      templateUrl: 'show.template',
+      controller: function($route, $rootScope, ExampleData){
+        var id = $route.current.params.id;
+        $rootScope.selectedExample = ExampleData[id];
+      }
+    })
+    .when('/', {
+      templateUrl: 'list.template',
+      controller: function($route, $rootScope, ExampleData){
+        delete $rootScope.selectedExample;
+      }
+    })
+    .otherwise({ redirectTo: '/' });
+
+  $locationProvider.html5Mode(true);
+})
+.controller('ExamplesCtrl', function($scope, ExampleData, $location){
+  $scope.goHome = function(){
+    $location.path('');
+  };
+
   $scope.examples = [];
   for (var id in ExampleData){
+    ExampleData[id].id = id;
     $scope.examples.push(ExampleData[id]);
   }
 })
-.filter('hexify', function(){
+.filter('colorify', function(){
   var max = 256,
       min = max * 1/2,
       diff = max-min,

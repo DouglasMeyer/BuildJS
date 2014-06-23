@@ -6,19 +6,29 @@ html
     link(href="index.css" rel="stylesheet" type="text/css")
 
   body(ng-app="BuildJS" ng-controller="ExamplesCtrl")
-    h1.title BuildJS
+    h1.title(ng-click="goHome()") BuildJS
       .title__tagline a collection of node build scripts.
 
-    input.search(ng-model="search")
 
-    .example-preview(ng-cloak ng-repeat="example in examples | filter:{name:search}")
-      span.example-preview__name {{example.name}}
-      span.example-preview__description {{example.description}}
-      span.example-preview__author {{example.author}}
-      .example-preview__dependencies
-        span.example-preview__dependency(
-          ng-repeat="(dep, ver) in example.devDependencies"
-          style="background-color: {{dep | hexify}};"
-        ) {{dep}}
+    div(ng-view)
+
+    script(type="text/ng-template" id="list.template")
+      input.search(ng-model="search")
+
+      .example-preview(
+        ng-cloak
+        ng-repeat="example in examples | filter:{name:search}"
+        )
+        a.example-preview__name(href="/{{example.id}}") {{example.name}}
+        span.example-preview__description {{example.description}}
+        span.example-preview__author {{example.author}}
+        .example-preview__dependencies
+          span.example-preview__dependency(
+            ng-repeat="(dep, ver) in example.devDependencies"
+            style="background-color: {{dep | colorify}};"
+          ) {{dep}}
+
+    script(type="text/ng-template" id="show.template")
+      h1 {{selectedExample.name}}
 
     script(src="index.js")
