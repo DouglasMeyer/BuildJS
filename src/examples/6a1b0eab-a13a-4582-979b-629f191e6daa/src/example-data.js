@@ -34,6 +34,8 @@ angular.module('BuildJS').service('ExampleData', function(){
   "license": "ISC",
   "devDependencies": {
     "bower": "^1.3.5",
+    "connect": "^2.19.6",
+    "connect-history-api-fallback": "0.0.4",
     "gulp": "^3.8.0",
     "gulp-clean": "^0.3.0",
     "gulp-concat": "^2.2.0",

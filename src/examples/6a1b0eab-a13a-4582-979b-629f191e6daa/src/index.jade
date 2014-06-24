@@ -29,6 +29,8 @@ html
           ) {{dep}}
 
     script(type="text/ng-template" id="show.template")
-      h1 {{selectedExample.name}}
+      .example
+        h1 {{example.name}}
+        pre.example__file(ng-include="exampleFile")
 
     script(src="index.js")

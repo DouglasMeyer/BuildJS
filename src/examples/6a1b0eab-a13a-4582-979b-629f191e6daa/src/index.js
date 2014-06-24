@@ -3,16 +3,17 @@ angular.module('BuildJS', ['ng', 'ngRoute', 'ngAnimate'])
   $routeProvider
     .when('/:id', {
       templateUrl: 'show.template',
-      controller: function($route, $rootScope, ExampleData){
-        var id = $route.current.params.id;
-        $rootScope.selectedExample = ExampleData[id];
+      controller: 'ExampleCtrl',
+      resolve: {
+        example: function($route, ExampleData){
+          var id = $route.current.params.id;
+          return ExampleData[id];
+        }
       }
     })
     .when('/', {
       templateUrl: 'list.template',
-      controller: function($route, $rootScope, ExampleData){
-        delete $rootScope.selectedExample;
-      }
+      controller: 'ExamplesCtrl'
     })
     .otherwise({ redirectTo: '/' });
 
@@ -28,6 +29,10 @@ angular.module('BuildJS', ['ng', 'ngRoute', 'ngAnimate'])
     ExampleData[id].id = id;
     $scope.examples.push(ExampleData[id]);
   }
+})
+.controller('ExampleCtrl', function($scope, example){
+  $scope.example = example;
+  $scope.exampleFile = "/src/examples/"+example.id+"/gulpfile.js";
 })
 .filter('colorify', function(){
   var max = 256,

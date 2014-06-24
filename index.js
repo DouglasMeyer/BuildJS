@@ -24283,16 +24283,17 @@ angular.module('BuildJS', ['ng', 'ngRoute', 'ngAnimate'])
   $routeProvider
     .when('/:id', {
       templateUrl: 'show.template',
-      controller: function($route, $rootScope, ExampleData){
-        var id = $route.current.params.id;
-        $rootScope.selectedExample = ExampleData[id];
+      controller: 'ExampleCtrl',
+      resolve: {
+        example: function($route, ExampleData){
+          var id = $route.current.params.id;
+          return ExampleData[id];
+        }
       }
     })
     .when('/', {
       templateUrl: 'list.template',
-      controller: function($route, $rootScope, ExampleData){
-        delete $rootScope.selectedExample;
-      }
+      controller: 'ExamplesCtrl'
     })
     .otherwise({ redirectTo: '/' });
 
@@ -24308,6 +24309,10 @@ angular.module('BuildJS', ['ng', 'ngRoute', 'ngAnimate'])
     ExampleData[id].id = id;
     $scope.examples.push(ExampleData[id]);
   }
+})
+.controller('ExampleCtrl', function($scope, example){
+  $scope.example = example;
+  $scope.exampleFile = "/src/examples/"+example.id+"/gulpfile.js";
 })
 .filter('colorify', function(){
   var max = 256,
@@ -24366,6 +24371,8 @@ angular.module('BuildJS').service('ExampleData', function(){
   "license": "ISC",
   "devDependencies": {
     "bower": "^1.3.5",
+    "connect": "^2.19.6",
+    "connect-history-api-fallback": "0.0.4",
     "gulp": "^3.8.0",
     "gulp-clean": "^0.3.0",
     "gulp-concat": "^2.2.0",

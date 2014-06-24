@@ -70,8 +70,11 @@ gulp.task('js', function() {
 
 gulp.task('server', function(next) {
   var connect = require('connect'),
-  server = connect();
-  server.use(connect.static(buildDir)).listen(process.env.PORT || 8000, next);
+      historyApiFallback = require('connect-history-api-fallback');
+  connect()
+    .use(historyApiFallback)
+    .use(connect.static(buildDir))
+    .listen(process.env.PORT || 8000, next);
 });
 
 gulp.task('lr-server', function() {
