@@ -14,7 +14,7 @@ html
 
     script(type="text/ng-template" id="list.template")
       .search
-        input.search__input(ng-model="search")
+        input.search__input(ng-model="search" ng-list="/[ ]+/")
         .search__terms(ng-show="search")
           .term(
             ng-repeat="term in terms | filter:search"
@@ -23,7 +23,7 @@ html
 
       .example-preview(
         ng-cloak
-        ng-repeat="example in examples | filter:{terms:search}"
+        ng-repeat="example in examples | filter:matchTerms"
         )
         a.example-preview__name(href="/BuildJS/{{example.id}}") {{example.package.name}}
         span.example-preview__description {{example.package.description}}

@@ -24323,6 +24323,15 @@ angular.module('BuildJS', ['ng', 'ngRoute', 'ngAnimate'])
         $scope.terms.push(term);
     }
   }
+
+  $scope.matchTerms = function(example){
+    if (!$scope.search) return true;
+    return $scope.search.every(function(term){
+      return example.terms.some(function(eTerm){
+        return eTerm.indexOf(term) !== -1;
+      });
+    });
+  };
 })
 .controller('ExampleCtrl', function($scope, example){
   $scope.example = example;
