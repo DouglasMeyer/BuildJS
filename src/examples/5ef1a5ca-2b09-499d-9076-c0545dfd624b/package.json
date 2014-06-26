@@ -1,6 +1,7 @@
 {
   "name": "Sample_gulpfile.js",
   "description": "This file is just a quick sample to give you a taste of what gulp does.",
+  "main": "gulpfile.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

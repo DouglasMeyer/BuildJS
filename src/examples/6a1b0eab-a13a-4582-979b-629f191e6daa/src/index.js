@@ -5,9 +5,19 @@ angular.module('BuildJS', ['ng', 'ngRoute', 'ngAnimate'])
       templateUrl: 'show.template',
       controller: 'ExampleCtrl',
       resolve: {
-        example: function($route, ExampleData){
-          var id = $route.current.params.id;
-          return ExampleData[id];
+        example: function($route, $http){
+          var id = $route.current.params.id,
+              packageJson;
+          return $http.get('/src/examples/'+id+'/package.json').then(function(response){
+            packageJson = angular.fromJson(response.data);
+            return $http.get('/src/examples/'+id+'/'+packageJson.main);
+          }).then(function(response){
+            return {
+              id: id,
+              package: packageJson,
+              file: response.data
+            };
+          });
         }
       }
     })
@@ -25,14 +35,17 @@ angular.module('BuildJS', ['ng', 'ngRoute', 'ngAnimate'])
   };
 
   $scope.examples = [];
-  for (var id in ExampleData){
-    ExampleData[id].id = id;
-    $scope.examples.push(ExampleData[id]);
+  $scope.terms = [];
+  for (var i=0, example; example = ExampleData[i]; i++){
+    $scope.examples.push(example);
+    for (var j=0, term; term=example.terms[j]; j++){
+      if ($scope.terms.indexOf(term) === -1)
+        $scope.terms.push(term);
+    }
   }
 })
 .controller('ExampleCtrl', function($scope, example){
   $scope.example = example;
-  $scope.exampleFile = "/src/examples/"+example.id+"/gulpfile.js";
 })
 .filter('colorify', function(){
   var max = 256,

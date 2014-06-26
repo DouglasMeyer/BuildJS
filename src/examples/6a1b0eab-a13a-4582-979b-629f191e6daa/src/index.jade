@@ -13,24 +13,30 @@ html
     div(ng-view)
 
     script(type="text/ng-template" id="list.template")
-      input.search(ng-model="search")
+      .search
+        input.search__input(ng-model="search")
+        .search__terms(ng-show="search")
+          .term(
+            ng-repeat="term in terms | filter:search"
+            style="background-color: {{term | colorify}}"
+            ) {{term}}
 
       .example-preview(
         ng-cloak
-        ng-repeat="example in examples | filter:{name:search}"
+        ng-repeat="example in examples | filter:{terms:search}"
         )
-        a.example-preview__name(href="/{{example.id}}") {{example.name}}
-        span.example-preview__description {{example.description}}
-        span.example-preview__author {{example.author}}
+        a.example-preview__name(href="/{{example.id}}") {{example.package.name}}
+        span.example-preview__description {{example.package.description}}
+        span.example-preview__author {{example.package.author}}
         .example-preview__dependencies
-          span.example-preview__dependency(
-            ng-repeat="(dep, ver) in example.devDependencies"
-            style="background-color: {{dep | colorify}};"
-          ) {{dep}}
+          span.term(
+            ng-repeat="term in example.terms"
+            style="background-color: {{term | colorify}};"
+          ) {{term}}
 
     script(type="text/ng-template" id="show.template")
       .example
-        h1 {{example.name}}
-        pre.example__file(ng-include="exampleFile")
+        h1 {{example.package.name}}
+        pre.example__file {{example.file}}
 
     script(src="index.js")

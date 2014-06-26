@@ -1,7 +1,15 @@
 * { box-sizing: border-box; }
+input {
+  font-family: inherit;
+  font-size: 100%;
+  margin: 0;
+  line-height: normal;
+}
 
 html {
   font-size: 20px;
+  overflow-y: scroll;
+  overflow-x: hidden;
 }
 
 body {
@@ -17,7 +25,7 @@ body {
 }
 
 [ng-view] {
-  $transition-time: 0.1s;
+  $transition-time: 0.15s;
   $scale-modifier: 0.02;
 
   &.ng-enter, &.ng-leave {
@@ -49,12 +57,40 @@ body {
   }
 }
 
+.term {
+  display: inline-block;
+  box-shadow: 0 1px 2px rgba(0,0,0, 0.4);
+  border-radius: 3px;
+  padding: 0 3px;
+  margin: 0 1ex 1ex 0;
+}
+
 .search {
-  display: block;
-  font-size: 2rem;
+  position: relative;
   width: 80%;
   margin: 2rem auto;
-  padding: 5px 1ex;
+  z-index: 1;
+  height: calc(2rem + 20px);
+
+  .search__input {
+    position: absolute;
+    z-index: 1;
+    display: block;
+    width: 100%;
+    padding: 5px 1ex;
+    font-size: 2rem;
+
+  }
+
+  .search__terms {
+    left: 3px; right: 3px;
+    top: calc(2rem + 20px);
+    overflow-y: scroll;
+    position: absolute;
+    background-color: white;
+    box-shadow: 1px 1px 5px rgba(0,0,0, 0.4);
+    padding: 1ex 0 0 1ex;
+  }
 }
 
 .example-preview {
@@ -84,12 +120,6 @@ body {
     top: 2.5em;
     font-size: 0.8rem;
     font-family: monospace;
-  }
-  .example-preview__dependency {
-    margin-right: 1ex;
-    box-shadow: 0 1px 2px rgba(0,0,0, 0.4);
-    border-radius: 3px;
-    padding: 0 3px;
   }
 }
 
