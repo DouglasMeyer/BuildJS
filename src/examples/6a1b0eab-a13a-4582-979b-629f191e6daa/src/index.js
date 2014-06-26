@@ -1,7 +1,7 @@
 angular.module('BuildJS', ['ng', 'ngRoute', 'ngAnimate'])
 .config(function($locationProvider, $routeProvider){
   $routeProvider
-    .when('/:id', {
+    .when('/BuildJS/:id', {
       templateUrl: 'show.template',
       controller: 'ExampleCtrl',
       resolve: {
@@ -21,11 +21,11 @@ angular.module('BuildJS', ['ng', 'ngRoute', 'ngAnimate'])
         }
       }
     })
-    .when('/', {
+    .when('/BuildJS', {
       templateUrl: 'list.template',
       controller: 'ExamplesCtrl'
     })
-    .otherwise({ redirectTo: '/' });
+    .otherwise({ redirectTo: '/BuildJS' });
 
   $locationProvider.html5Mode(true);
 })

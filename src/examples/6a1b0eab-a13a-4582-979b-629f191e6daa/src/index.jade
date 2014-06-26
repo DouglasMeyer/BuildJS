@@ -25,7 +25,7 @@ html
         ng-cloak
         ng-repeat="example in examples | filter:{terms:search}"
         )
-        a.example-preview__name(href="/{{example.id}}") {{example.package.name}}
+        a.example-preview__name(href="/BuildJS/{{example.id}}") {{example.package.name}}
         span.example-preview__description {{example.package.description}}
         span.example-preview__author {{example.package.author}}
         .example-preview__dependencies

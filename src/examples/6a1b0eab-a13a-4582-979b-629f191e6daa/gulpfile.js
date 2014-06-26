@@ -72,6 +72,10 @@ gulp.task('server', function(next) {
   var connect = require('connect'),
       historyApiFallback = require('connect-history-api-fallback');
   connect()
+    .use(function(req, res, next){
+      req.url = req.url.replace('/BuildJS', '/');
+      next();
+    })
     .use(historyApiFallback)
     .use(connect.static(buildDir))
     .listen(process.env.PORT || 8000, next);
