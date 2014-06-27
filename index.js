@@ -24288,9 +24288,9 @@ angular.module('BuildJS', ['ng', 'ngRoute', 'ngAnimate'])
         example: function($route, $http){
           var id = $route.current.params.id,
               packageJson;
-          return $http.get('/src/examples/'+id+'/package.json').then(function(response){
+          return $http.get('src/examples/'+id+'/package.json').then(function(response){
             packageJson = angular.fromJson(response.data);
-            return $http.get('/src/examples/'+id+'/'+packageJson.main);
+            return $http.get('src/examples/'+id+'/'+packageJson.main);
           }).then(function(response){
             return {
               id: id,
