@@ -9,7 +9,8 @@ var gulp = require('gulp'),
     refresh = require('gulp-livereload'),
     lrServer = require('tiny-lr')(),
     minifyCSS = require('gulp-minify-css'),
-    embedlr = require('gulp-embedlr');
+    embedlr = require('gulp-embedlr'),
+    fs = require('fs');
 
 
 // - Constants
@@ -68,15 +69,27 @@ gulp.task('js', function() {
       .pipe(refresh(lrServer))
 });
 
+gulp.task('link', ['html'], function(){
+  var index = gulp.src(buildDir+'/index.html');
+  fs.readdir(buildDir+'/src/examples', function(err, ids){
+    if(err) return console.log(err);
+
+    ids.forEach(function(id){
+      fs.symlinkSync('index.html', buildDir+'/'+id);
+    });
+  });
+});
+
 gulp.task('server', function(next) {
-  var connect = require('connect'),
-      historyApiFallback = require('connect-history-api-fallback');
+  var connect = require('connect');
   connect()
     .use(function(req, res, next){
-      req.url = req.url.replace('/BuildJS', '/');
+      req.url = req.url.replace('/BuildJS', '');
+      if ((/\/[a-z0-9]{8}(-[a-z0-9]{4}){3}-[a-z0-9]{12}/).test(req.url)) {
+        res.setHeader('Content-Type', 'text/html');
+      }
       next();
     })
-    .use(historyApiFallback)
     .use(connect.static(buildDir))
     .listen(process.env.PORT || 8000, next);
 });
@@ -90,7 +103,7 @@ gulp.task('lr-server', function() {
 
 // - Tasks
 gulp.task('default', ['clean', 'server', 'lr-server'], function() {
-  gulp.start('html', 'css', 'js');
+  gulp.start('html', 'css', 'js', 'link');
 
   gulp.watch(jsFiles,   ['js']  );
   gulp.watch(scssFiles, ['css'] );
